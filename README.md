@@ -18,6 +18,7 @@ A modern C++ implementation of a desktop controller for the iSpy Tank (also know
 ## Project Structure
 - `src/core/`: Platform-independent logic (C++). Handles TCP communication and MJPEG stream parsing.
 - `src/desktop/`: Desktop-specific UI implementation using Qt Widgets.
+- `src/mobile/`: Mobile-specific UI implementation using Qt Quick (QML) for Android and future iPad support.
 
 ## Building the Application
 1. Ensure Qt 6 is installed and in your PATH.
@@ -28,6 +29,12 @@ A modern C++ implementation of a desktop controller for the iSpy Tank (also know
    cmake ..
    cmake --build .
    ```
+
+### Building for Android
+To build the mobile version for Android/Amazon Fire:
+1. Open the project in CLion or use the command line with an Android Qt Kit.
+2. Configure CMake with `-DANDROID=ON` and provide the path to your Android SDK/NDK.
+3. Build the `spy_tank_mobile` target.
 
 ## Running Tests
 This project includes a unit test suite for the core communication logic.

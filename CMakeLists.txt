@@ -13,6 +13,8 @@ find_package(Qt6 COMPONENTS
         Widgets
         Network
         Test
+        Quick
+        Multimedia
         REQUIRED)
 
 add_subdirectory(src)
