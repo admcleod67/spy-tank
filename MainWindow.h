@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QSet>
 #include "SpyTank.h"
+#include "VideoReceiver.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -22,16 +23,19 @@ private slots:
     void onConnectClicked();
     void updateUiState();
     void showError(const QString &error);
+    void updateFrame(const QPixmap &pixmap);
 
 private:
     void setupUi();
     void processMovement();
 
     SpyTank *m_tank;
+    VideoReceiver *m_video;
     QLineEdit *m_ipEdit;
     QLineEdit *m_portEdit;
     QPushButton *m_connectBtn;
     QLabel *m_statusLabel;
+    QLabel *m_videoLabel;
 
     QSet<int> m_pressedKeys;
 };

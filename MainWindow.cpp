@@ -5,12 +5,14 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_tank(new SpyTank(this)) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_tank(new SpyTank(this)), m_video(new VideoReceiver(this)) {
     setupUi();
     connect(m_tank, &SpyTank::connected, this, &MainWindow::updateUiState);
     connect(m_tank, &SpyTank::disconnected, this, &MainWindow::updateUiState);
     connect(m_tank, &SpyTank::stateChanged, this, &MainWindow::updateUiState);
     connect(m_tank, &SpyTank::errorOccurred, this, &MainWindow::showError);
+    connect(m_video, &VideoReceiver::frameReceived, this, &MainWindow::updateFrame);
+    connect(m_video, &VideoReceiver::errorOccurred, this, &MainWindow::showError);
 
     setWindowTitle("iSpy Tank Remote");
     updateUiState();
@@ -42,6 +44,13 @@ void MainWindow::setupUi() {
     info->setAlignment(Qt::AlignCenter);
     layout->addWidget(info);
 
+    // Video Feed
+    m_videoLabel = new QLabel("Video Feed (Connect to see)");
+    m_videoLabel->setAlignment(Qt::AlignCenter);
+    m_videoLabel->setMinimumSize(320, 240);
+    m_videoLabel->setStyleSheet("background-color: black; color: white;");
+    layout->addWidget(m_videoLabel, 1); // Give it stretch factor
+
     // Status
     m_statusLabel = new QLabel("Status: Disconnected");
     layout->addWidget(m_statusLabel);
@@ -65,6 +74,9 @@ void MainWindow::updateUiState() {
             m_connectBtn->setText("Connect");
             m_ipEdit->setEnabled(true);
             m_portEdit->setEnabled(true);
+            m_video->stop();
+            m_videoLabel->setPixmap(QPixmap());
+            m_videoLabel->setText("Video Feed (Connect to see)");
             break;
         case QAbstractSocket::ConnectingState:
             m_statusLabel->setText("Status: Connecting...");
@@ -75,6 +87,7 @@ void MainWindow::updateUiState() {
             m_connectBtn->setText("Disconnect");
             m_ipEdit->setEnabled(false);
             m_portEdit->setEnabled(false);
+            m_video->start(m_ipEdit->text());
             break;
         default:
             m_statusLabel->setText(QString("Status: %1").arg(state));
@@ -84,6 +97,10 @@ void MainWindow::updateUiState() {
 
 void MainWindow::showError(const QString &error) {
     QMessageBox::critical(this, "Error", error);
+}
+
+void MainWindow::updateFrame(const QPixmap &pixmap) {
+    m_videoLabel->setPixmap(pixmap.scaled(m_videoLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {

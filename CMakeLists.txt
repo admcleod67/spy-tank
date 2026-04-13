@@ -20,6 +20,8 @@ add_executable(spy_tank
         SpyTank.cpp
         MainWindow.h
         MainWindow.cpp
+        VideoReceiver.h
+        VideoReceiver.cpp
 )
 target_link_libraries(spy_tank
         Qt::Core

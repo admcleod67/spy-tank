@@ -4,7 +4,8 @@ A modern C++ implementation of a desktop controller for the iSpy Tank (also know
 
 ## Features
 - **TCP/IP Communication**: Handles the tank's custom protocol over port `8150`.
-- **Asynchronous Networking**: Uses `QTcpSocket` to ensure the GUI remains responsive during communication.
+- **Real-time Video**: Displays an MJPEG stream from the tank's camera (port `8196`).
+- **Asynchronous Networking**: Uses `QTcpSocket` and `QNetworkAccessManager` to ensure the GUI remains responsive.
 - **Keyboard Driving**: Intuitive controls using WASD or Arrow keys.
 - **Camera Control**: Tilt the camera up and down using the Q and E keys.
 - **Modern C++**: Developed with C++20 and Qt 6.
