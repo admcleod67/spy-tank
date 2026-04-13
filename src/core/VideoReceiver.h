@@ -16,6 +16,9 @@ public:
     void start(const QString &host, quint16 port = 8196);
     void stop();
 
+    // Testing support
+    void processData(const QByteArray &data);
+
 signals:
     void frameReceived(const QPixmap &pixmap);
     void errorOccurred(const QString &error);

@@ -15,6 +15,10 @@ A modern C++ implementation of a desktop controller for the iSpy Tank (also know
 - **CMake 4.2+**
 - **C++20** compatible compiler (GCC, Clang, or MSVC)
 
+## Project Structure
+- `src/core/`: Platform-independent logic (C++). Handles TCP communication and MJPEG stream parsing.
+- `src/desktop/`: Desktop-specific UI implementation using Qt Widgets.
+
 ## Building the Application
 1. Ensure Qt 6 is installed and in your PATH.
 2. Clone the repository and navigate to the project directory.
@@ -24,6 +28,15 @@ A modern C++ implementation of a desktop controller for the iSpy Tank (also know
    cmake ..
    cmake --build .
    ```
+
+## Running Tests
+This project includes a unit test suite for the core communication logic.
+To build and run the tests:
+```bash
+cmake --build build --target test_spy_tank test_video_receiver
+./build/tests/test_spy_tank
+./build/tests/test_video_receiver
+```
 
 ## Usage
 1. Power on your iSpy Tank and connect your computer to the tank's Wi-Fi network (usually named `iSpyTank` or similar).

@@ -12,21 +12,9 @@ find_package(Qt6 COMPONENTS
         Gui
         Widgets
         Network
+        Test
         REQUIRED)
 
-add_executable(spy_tank
-        main.cpp
-        SpyTank.h
-        SpyTank.cpp
-        MainWindow.h
-        MainWindow.cpp
-        VideoReceiver.h
-        VideoReceiver.cpp
-)
-target_link_libraries(spy_tank
-        Qt::Core
-        Qt::Gui
-        Qt::Widgets
-        Qt::Network
-)
+add_subdirectory(src)
+add_subdirectory(tests)
 

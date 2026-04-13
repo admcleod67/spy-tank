@@ -31,7 +31,11 @@ void VideoReceiver::stop() {
 }
 
 void VideoReceiver::onReadyRead() {
-    m_buffer.append(m_reply->readAll());
+    processData(m_reply->readAll());
+}
+
+void VideoReceiver::processData(const QByteArray &data) {
+    m_buffer.append(data);
 
     while (true) {
         int startPos = m_buffer.indexOf(JPEG_START);
