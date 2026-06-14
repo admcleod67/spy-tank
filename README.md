@@ -11,8 +11,8 @@ A modern C++ implementation of a desktop controller for the iSpy Tank (also know
 - **Modern C++**: Developed with C++20 and Qt 6.
 
 ## Requirements
-- **Qt 6**: (Core, Gui, Widgets, Network modules)
-- **CMake 4.2+**
+- **Qt 6**: Core, Gui, Widgets, Network, Test, Quick, and Multimedia
+- **CMake** 3.16+
 - **C++20** compatible compiler (GCC, Clang, or MSVC)
 
 ## Project Structure
@@ -21,7 +21,7 @@ A modern C++ implementation of a desktop controller for the iSpy Tank (also know
 - `src/mobile/`: Mobile-specific UI implementation using Qt Quick (QML) for Android and future iPad support.
 
 ## Building the Application
-1. Ensure Qt 6 is installed and in your PATH.
+1. Ensure Qt 6 and CMake are installed.
 2. Clone the repository and navigate to the project directory.
 3. Build using CMake:
    ```bash
@@ -29,6 +29,9 @@ A modern C++ implementation of a desktop controller for the iSpy Tank (also know
    cmake ..
    cmake --build .
    ```
+
+### Building on Linux
+See [docs/BUILD_LINUX.md](docs/BUILD_LINUX.md) for installing dependencies on Debian-based systems, including Raspberry Pi OS.
 
 ### Building for Android
 To build the mobile version for Android/Amazon Fire:
